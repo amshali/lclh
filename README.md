@@ -2,7 +2,7 @@
 
 This is a Python-based command line tool that helps users generate Linux commands based on their needs. It uses an AI model to generate the commands.
 
-## Installation
+## Development
 
 1. Clone this repository:
 
@@ -19,19 +19,21 @@ pip install -r requirements.txt
 
 ## Usage
 
-Run the program locally with:
+1. Run the program locally with:
 
 ```sh
 python lclh.py --env-path /path/to/config/.env
 ```
 
-3. Build and publish binary package
+## Build and Publish
+
+1. Build and publish binary package
 
 ```sh
 pyinstaller --onefile lclh.py && sudo cp dist/lclh /usr/local/bin/
 ```
 
-4. Setup your `.env` file
+2. Setup your `.env` file
 
 ```sh
 mkdir -p $HOME/.config/lclh/
@@ -41,7 +43,7 @@ echo "MODEL_NAME=?????" >> $HOME/.config/lclh/.env
 
 ```
 
-5. Add key binding to zsh or bash
+3. Add key binding to zsh or bash
 
 For zsh add these to your `.zshrc` file:
 
@@ -53,7 +55,7 @@ bindkey -s '^u' 'lclh\n'
 
 I have chosen `Ctrl+U` as my shortcut key for this. Change it according to your preference.
 
-6. Use it!
+4. Use it!
 
 Open a new terminal and press `Ctrl+U`. When prompted, describe what you need to do in Linux.
 The program will generate a list of commands that can accomplish your task.
