@@ -13,25 +13,50 @@ cd lclh
 
 2. Install the required Python packages:
 
-```bash
+```sh
 pip install -r requirements.txt
 ```
 
 ## Usage
 
-Run the program with:
+Run the program locally with:
 
-```bash
+```sh
 python lclh.py --env-path /path/to/config/.env
 ```
 
 3. Build and publish binary package
 
-```bash
+```sh
 pyinstaller --onefile lclh.py && sudo cp dist/lclh /usr/local/bin/
 ```
 
-When prompted, describe what you need to do in Linux. The program will generate a list of commands that can accomplish your task.
+4. Setup your `.env` file
+
+```sh
+mkdir -p $HOME/.config/lclh/
+
+echo "OPENAI_API_KEY=?????" >> $HOME/.config/lclh/.env
+echo "MODEL_NAME=?????" >> $HOME/.config/lclh/.env
+
+```
+
+5. Add key binding to zsh or bash
+
+For zsh add these to your `.zshrc` file:
+
+```zsh
+alias lclh="/usr/local/bin/lclh"
+
+bindkey -s '^u' 'lclh\n'
+```
+
+I have chosen `Ctrl+U` as my shortcut key for this. Change it according to your preference.
+
+6. Use it!
+
+Open a new terminal and press `Ctrl+U`. When prompted, describe what you need to do in Linux.
+The program will generate a list of commands that can accomplish your task.
 
 ## Contributing
 
