@@ -1,6 +1,6 @@
 # Linux Command Line Helper (lclh)
 
-This is a Python-based command line tool that helps users generate Linux commands based on their needs. It uses an AI model to generate the commands.
+This is a Python-based command line tool that helps users generate Linux commands based on their needs. It uses an _AI model_ to generate the commands.
 
 ## Development
 
