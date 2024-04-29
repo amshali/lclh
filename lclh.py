@@ -34,10 +34,6 @@ def main():
     return result
 
 
-# Save the readline history when the program exits
-atexit.register(readline.write_history_file, "history.txt")
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Assistant")
     # Add arguments
