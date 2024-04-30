@@ -25,12 +25,28 @@ def main():
 
     chain = command_help_prompt | llm
 
-    readline.parse_and_bind("tab: complete")
-    need = input(colored("Describe what you need to do: ", "cyan", attrs=["bold"]))
-    result = chain.invoke({"input": need}).content
+    print(
+        colored(
+            "Describe what you need to do(or press enter to exit).",
+            "cyan",
+            attrs=["bold"],
+        )
+    )
+    while True:
+        need = input("> ")
+        # If the user presses enter without typing anything, exit the loop
+        if need == "":
+            break
 
-    # Add the input to the readline history
-    readline.add_history(need)
+        result = chain.invoke({"input": need}).content
+
+        # Add the input to the readline history if it's not the same as the last input
+        if (
+            readline.get_current_history_length() == 0
+            or need != readline.get_history_item(readline.get_current_history_length())
+        ):
+            readline.add_history(need)
+        print(result)
     return result
 
 
@@ -64,6 +80,4 @@ if __name__ == "__main__":
     except FileNotFoundError:
         pass
 
-    result = main()
-    # Print command to terminal
-    print(f"{result}")
+    main()
