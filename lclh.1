@@ -1,0 +1,43 @@
+.TH LCLH 1 "OCTOBER 2021" "lclh version 1.0" "User Commands"
+.SH NAME
+lclh \- Linux Command Line Helper
+.SH SYNOPSIS
+.B lclh
+.RI [ options ]
+.SH DESCRIPTION
+.B lclh
+is a Python-based command line tool that helps users generate Linux commands based on their needs. It uses an AI model to generate the commands.
+.SH OPTIONS
+.TP
+.BI \-\-env\-path " path"
+The path to the .env file. Default is $HOME/.config/lclh/.env.
+.SH EXAMPLES
+The following is how to use lclh:
+.br
+$ lclh
+.br
+Describe what you need to do(or press enter to exit).
+.br
+> I need to list all files in a directory
+.br
+Result: ls -l
+.SH SEE ALSO
+The full documentation for
+.B lclh
+is maintained as a Texinfo manual. If the
+.B info
+and
+.B lclh
+programs are properly installed at your site, the command
+.IP
+.B info lclh
+.PP
+should give you access to the complete manual.
+.SH AUTHOR
+Written by Amin Shali.
+.SH REPORTING BUGS
+Report lclh bugs to amshali@gmail.com
+.SH COPYRIGHT
+Copyright © 2024 Amin Shali.
+.br
+This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
