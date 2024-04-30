@@ -34,6 +34,13 @@ python lclh.py --env-path /path/to/config/.env
 
 ```sh
 pyinstaller --onefile lclh.py && sudo cp dist/lclh /usr/local/bin/
+
+# Install man file:
+sudo mkdir /usr/local/man/man1
+sudo cp lclh.1 /usr/local/man/man1/
+
+# Use man:
+man lclh
 ```
 
 2. Setup your `.env` file
