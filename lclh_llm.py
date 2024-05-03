@@ -31,3 +31,38 @@ class ChatOpenAILlmAdapter(LlmAdapter):
         self.history.append(HumanMessage(content=input))
         self.history.append(AIMessage(content=response))
         return response
+
+
+class OllamaLlmAdapter(LlmAdapter):
+    def __init__(self, llm, model_name):
+        super().__init__("Ollama")
+        self.llm = llm
+        self.model_name = model_name
+        self.history = [
+            {
+                "role": "system",
+                "content": """
+Return a bullet list of one-liner linux/unix command(s)
+or coding/programming related commands for the following user's task/need.
+(Only return the commands, no explanation needed.)
+
+If the user's input is not something related to linux commands, say "Cannot help with that."
+        """,
+            },
+        ]
+
+    def process_input(self, input: str) -> str:
+        self.history.append(
+            {
+                "role": "user",
+                "content": input,
+            }
+        )
+
+        response = self.llm.chat(
+            model=self.model_name,
+            messages=self.history,
+            stream=False,
+        )
+        self.history.append(response["message"])
+        return response["message"]["content"]

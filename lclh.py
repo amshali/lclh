@@ -7,7 +7,8 @@ from termcolor import colored
 import atexit
 import sys
 import signal
-from lclh_llm import ChatOpenAILlmAdapter, LlmAdapter
+from lclh_llm import ChatOpenAILlmAdapter, LlmAdapter, OllamaLlmAdapter
+import ollama
 
 
 def exit_handler(signal, frame):
@@ -57,24 +58,21 @@ if __name__ == "__main__":
         help="The path to the .env file",
     )
 
-    parser.add_argument(
-        "--model",
-        type=str,
-        choices=["gpt", "llama3"],
-        default="gpt",
-        help="The model to use (gpt or llama3)",
-    )
-
     # Parse the command-line arguments
     args = parser.parse_args()
     # Load environment variables from .env file
     load_dotenv(dotenv_path=args.env_path)
 
     llm_adapter = None
-    if args.model == "gpt":
+    model = os.getenv("MODEL_NAME")
+    if model.startswith("gpt"):
         llm_adapter = ChatOpenAILlmAdapter(
             ChatOpenAI(model=os.getenv("MODEL_NAME"), temperature=0.1)
         )
+    elif model.startswith("llama"):
+        llm_adapter = OllamaLlmAdapter(ollama, model)
+    else:
+        raise ValueError(f"Invalid model: {model}")
 
     # Construct the path to the history file
     history_file = os.path.join(os.path.expanduser("~"), ".config/lclh/history")

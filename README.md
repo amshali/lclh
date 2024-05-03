@@ -30,6 +30,23 @@ python lclh.py --env-path /path/to/config/.env
 
 ## Build and Publish
 
+### Prerequisite
+
+#### OpenAI
+
+You should have an API key if you want to use OpenAI model.
+Sign up and get your API Key and put it in the .env file along with the
+OpenAI model of your choice.
+
+#### Llama
+
+In order to use llama, install and run Ollama. See and follow
+this: https://github.com/ollama/ollama/tree/main
+
+We suggest using `llama3:8B`.
+If you are using llama, the only thing you need to set in
+the `.env` file is the llama model name which is `llama3`.
+
 1. Build and publish binary package
 
 ```sh
