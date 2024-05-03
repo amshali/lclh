@@ -2,7 +2,7 @@ from abc import abstractmethod
 from langchain_core.messages import AIMessage, HumanMessage
 
 from langchain_openai import ChatOpenAI
-from prompt import chat_openai_prompt
+from prompts import chat_openai_prompt
 
 
 class LlmAdapter:
