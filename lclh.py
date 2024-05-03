@@ -7,7 +7,7 @@ from termcolor import colored
 import atexit
 import sys
 import signal
-from prompt import command_help_prompt
+from lclh_llm import ChatOpenAILlmAdapter, LlmAdapter
 
 
 def exit_handler(signal, frame):
@@ -20,11 +20,7 @@ def exit_handler(signal, frame):
 signal.signal(signal.SIGINT, exit_handler)
 
 
-def main():
-    llm = ChatOpenAI(model=os.getenv("MODEL_NAME"), temperature=0.1)
-
-    chain = command_help_prompt | llm
-
+def main(llm_adapter: LlmAdapter):
     print(
         colored(
             "Describe what you need to do(or press enter to exit).",
@@ -38,7 +34,7 @@ def main():
         if need == "":
             break
 
-        result = chain.invoke({"input": need}).content
+        result = llm_adapter.process_input(need)
 
         # Add the input to the readline history if it's not the same as the last input
         if (
@@ -61,10 +57,24 @@ if __name__ == "__main__":
         help="The path to the .env file",
     )
 
+    parser.add_argument(
+        "--model",
+        type=str,
+        choices=["gpt", "llama3"],
+        default="gpt",
+        help="The model to use (gpt or llama3)",
+    )
+
     # Parse the command-line arguments
     args = parser.parse_args()
     # Load environment variables from .env file
     load_dotenv(dotenv_path=args.env_path)
+
+    llm_adapter = None
+    if args.model == "gpt":
+        llm_adapter = ChatOpenAILlmAdapter(
+            ChatOpenAI(model=os.getenv("MODEL_NAME"), temperature=0.1)
+        )
 
     # Construct the path to the history file
     history_file = os.path.join(os.path.expanduser("~"), ".config/lclh/history")
@@ -80,4 +90,4 @@ if __name__ == "__main__":
     except FileNotFoundError:
         pass
 
-    main()
+    main(llm_adapter)
